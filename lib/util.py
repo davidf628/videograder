@@ -1,4 +1,4 @@
-import os, tomli, shutil
+import os, tomli, shutil, time
 
 #######################################################################
 ##
@@ -27,6 +27,7 @@ def load_config(config_filename):
         if onedrive_path == False:
             raise SystemExit(f"OneDrive folder location could not be found. Please check the config.toml file.")
         else:
+            config['onedrive_path'] = onedrive_path
             config['gradebook_shared_folder'] = get_path(onedrive_path, config['gradebook_folder'])
 
         return config    
@@ -57,7 +58,11 @@ def create_temp_db(config):
 
 def delete_temp_db(config):
     shutil.copy2(config['temp_db'], config['reports_db'])
-    os.remove(config['temp_db'])
+    try:
+        os.remove(config['temp_db'])
+    except (PermissionError):
+        time.sleep(10)
+        os.remove(config['temp_db'])
 
 
 ###############################################################################

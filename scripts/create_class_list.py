@@ -1,20 +1,20 @@
 import csv, os, sys
 from openpyxl import load_workbook
 
-sys.path.append(os.path.join('..', 'lib'))
-import lib.util as util
+sys.path.append(os.path.join(os.path.realpath('..'), 'lib'))
 
-config = util.load_config('config.toml')
+import util
 
-ONE_DRIVE = config(['onedrive'])
-CLASS_SCHEDULE_FILE = config(['class_schedule_file'])
+config = util.load_config('..\config.toml')
+
+ONE_DRIVE = config['onedrive_path']
+CLASS_SCHEDULE_FILE = config['class_schedule_file']
 
 OUTPUT_FILE = 'classes_new.csv'
 
-termdates = { '2023U' : ['5/25/2023', '8/10/2023'],
-              '2023UF1' : ['5/25/2023', '6/30/2023'],
-              '2023UF2' : ['7/5/2023', '8/10/2023'],
-              '2023UM' : ['5/1/2023', '5/25/2023'] }
+termdates = { '2023FA' : ['5/25/2023', '8/10/2023'],
+              '2023FF1' : ['5/25/2023', '6/30/2023'],
+              '2023FF2' : ['7/5/2023', '8/10/2023'] }
 
 videosets = { 'mat-101' : 'isp',
               'mat-102' : 'isp',
@@ -22,7 +22,7 @@ videosets = { 'mat-101' : 'isp',
               'mat-110' : 'mat110',
               'mat-111' : 'mat111',
               'mat-112' : 'mat112',
-			  'mat-115' : 'mat115',
+              'mat-115' : 'mat115',
               'mat-120' : 'mat120',
               'mat-130' : 'mat130',
               'mat-140' : 'mat140',
